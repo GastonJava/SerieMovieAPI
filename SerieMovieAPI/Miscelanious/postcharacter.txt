@@ -1,0 +1,74 @@
+﻿[HttpPost]
+        public async Task<IActionResult> CreateCharacter([FromForm] CharactersDTO character) //IFormFile file CharacterModel character, IFormFile file, [Bind("CharacterId, Name_Character, Age_Character, Weight_Character, History_Character, titulo_movie", "Movieseries")], 
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                var movieserielista = (ICollection<CharactersDTO>)character.Movieseries.GetEnumerator();
+
+
+                if (character.File != null)
+                {
+
+                    /*
+                    bool imagenADirectorio = false;
+
+                    // Byte a imagen pero guardamos en el directorio "StaticFiles" si se guarda es true
+                    imagenADirectorio = _unitOfWork.Images.byteArrayToDirectoryImage(file);
+                     
+                    if (imagenADirectorio) 
+                    {
+                        _logger.LogInformation(imagenADirectorio + ": Imagen directorio se cargo correctamente");
+                    }
+                    */
+
+
+                    // Convertir imagen a byte y guardarlo en Image_Characterbyte (en base de datos)
+                    character.Image_Characterbyte = _unitOfWork.Images.imageToBytearrayFromMemory(character.File);
+
+
+
+                    /*this.imageToBytearrayFromMemory(file); */
+                }
+
+
+
+                var moviesexist = await _unitOfWork.Movieseries.GetByString(character.title_movie);
+
+                if (moviesexist)
+                {
+                    var movies = await _unitOfWork.Movieseries.GetByTitle(character.title_movie);
+
+                    //si existe la pelicula agregamos a la navegation property ICollection de modelo character
+                    character.Movieseries.Add((MovieseriesDTO)movies);
+                }
+                else
+                {
+                    // SI NO EXISTE ESA PELICULA CON ESE TITULO
+                    //guardamos la pelicula con ese atributo ingresado
+
+                    /*var movieserielista = character.Movieseries.FirstOrDefault(); */
+
+                    foreach (var lista in character.Movieseries)
+                    {
+                        lista.Title_Movserie = "hola";
+                    }
+
+
+                }
+
+                character.CharacterId = character.CharacterId;
+
+                //mappear models
+                var dtocharacter = _mapper.Map<CharacterModel>(character);
+
+
+                await _unitOfWork.Characters.Add(dtocharacter);
+                await _unitOfWork.CompleteAsync();
+
+                return CreatedAtAction(nameof(GetItem), new { id = character.CharacterId }, character);
+            }
+
+            return BadRequest(ModelState);
+        }

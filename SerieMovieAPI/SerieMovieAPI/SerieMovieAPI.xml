@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SerieMovieAPI</name>
+    </assembly>
+    <members>
+        <member name="M:SerieMovieAPI.Controllers.AuthManagmentController.Register(SerieMovieAPI.Models.DTOs.Requests.RegistroUsuarioDto)">
+            <summary>
+            Creates an new User.
+            </summary>
+            <remarks>
+            Sample request:
+                
+                POST /Register
+                {
+                
+                  "Email" = "Gaston@gmail.com",
+                  "UserName" = "Gastroms",
+                  "Password" = "@Gaston123"
+                  
+                }
+            </remarks>
+            <param name="user"></param>
+            <response code="201">Returns the newly created User</response>
+            <response code="400">If the item is null</response>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.AuthManagmentController.Login(SerieMovieAPI.Models.DTOs.Requests.UserLoginRequest)">
+            <summary>
+            Login the New User.
+            </summary>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.CharactersController.GetItem(System.Int32)">
+            <summary>
+             Gets the list of all Characters by his ID. 
+            </summary>
+            <returns>The List of Characters by ID</returns>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.CharactersController.GetbyName(System.String)">
+            <summary>
+             Gets the list of all Characters by his name. 
+            </summary>
+            <returns>The List of Characters by his name</returns>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.CharactersController.GetbyAge(System.Int32)">
+            <summary>
+             Gets the list of all Characters by age. 
+            </summary>
+            <returns>The List of Characters by the Age</returns>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.CharactersController.GetcharacByIdmovie(System.Int32)">
+            <summary>
+             Gets the list of all Characters by movieID. 
+            </summary>
+            <returns>The List of Characters by movieID</returns>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.CharactersController.Todos">
+            <summary>
+             Gets the list of all Characters. 
+            </summary>
+            <returns>The List of Characters</returns>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.CharactersController.CreateCharacter(SerieMovieAPI.Models.DTOs.Characters.CharactersDTO)">
+            <summary>
+            Creates an Character.
+            </summary>
+            <remarks>
+            Sample request:
+                
+                POST /CreateCharacter
+                {
+                
+                  "File" : "image",
+                  "Name_Character" : "Batman",
+                  "Age_Character" : 32,
+                  "Weight_Character" : 78,4,
+                  "History_Character" : "Batman is an main character from Batman movie",
+                  "title_movie" : "Batman, Batman Returns, Batman Forever",
+                  
+                }
+            </remarks>
+            <param name="character"></param>
+            <response code="201">Returns the newly created character</response>
+            <response code="400">If the item is null</response>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.MovieserieController.GetItem(System.Int32)">
+            <summary>
+             Gets the list of all Movies/Series by ID. 
+            </summary>
+            <returns>The List of Movies/Series by ID</returns>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.MovieserieController.CreateMovieserie(SerieMovieAPI.Models.DTOs.Movieseries.MovieseriesDTO)">
+            <summary>
+            Creates an Movie/Serie.
+            </summary>
+            <remarks>
+            Sample request:
+                
+                POST /CreateMovieserie
+                {
+                
+                  "Title_Movserie" : "Batman",
+                  "moviefile" : "Byte array",
+                  "Date_Movserie" : 1900-11-11,
+                  "Rating_Movserie" : 5,
+                  
+                }
+            </remarks>
+            <param name="movieseriedto"></param>
+            <response code="201">Returns the newly created Movie/Serie</response>
+            <response code="400">If the item is null</response>
+        </member>
+        <member name="M:SerieMovieAPI.Controllers.MovieserieController.Todos">
+            <summary>
+             Gets the list of all Movie/Serie. 
+            </summary>
+            <returns>The List of Movie/serie</returns>
+        </member>
+    </members>
+</doc>

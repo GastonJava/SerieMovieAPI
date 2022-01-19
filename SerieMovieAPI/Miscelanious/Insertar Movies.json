@@ -1,0 +1,156 @@
+﻿
+/*
+  funciona
+
+  {
+  "characterId": 0,
+  "image_Characterbyte": null,
+  "name_Character": "lisa Simpsons",
+  "age_Character": 15,
+  "weight_Character": 76.4,
+  "history_Character": "Lisa SImpsons una niña amarilla e inteligente",
+  "titulo_movie": "Los SImpsons",
+  "movieseries": [
+    {
+      "movieserieId": 0,
+      "title_Movserie": "Los Simpsons",
+      "image_Movserie": null,
+      "date_Movserie": "2021-12-10",
+      "rating_Movserie": 5,
+      "characters": [
+        null
+      ]
+    }
+  ],
+  "file": null
+}
+
+
+  ----------------
+   "movieseries": [
+    {
+      "movieserieId": 0,
+      "title_Movserie": "string",
+      "image_Movserie": "string",
+      "date_Movserie": "2021-12-10",
+      "rating_Movserie": 0,
+      "characters": [
+        null
+      ]
+    }
+  ]
+
+  ------------------
+
+   "movieseries": [
+    {
+      "movieserieId": 0,
+      "title_Movserie": "Los Simpsons",
+      "image_Movserie": null,
+      "date_Movserie": "2021-12-10",
+      "rating_Movserie": 5,
+      "characters": [
+        null
+      ]
+    }
+  ]
+
+  -----------------
+  from body
+
+  {
+  "characterId": 0,
+  "image_Characterbyte": null,
+  "name_Character": "Bart Simpsons",
+  "age_Character": 18,
+  "weight_Character": 80,
+  "history_Character": "un personaje amarillo",
+  "titulo_movie": "Simpsons",
+  "movieseries": [
+    {
+      "movieserieId": 0,
+      "title_Movserie": "Simpsons",
+      "image_Movserie": null,
+      "date_Movserie": "2021-12-10",
+      "rating_Movserie": 5,
+      "characters": [
+        null
+      ]
+    }
+  ]
+}
+
+
+  ------------------------------------
+
+  {
+  "characterId": 0,
+  "image_Characterbyte": "string",
+  "name_Character": "Lisa Simpsons",
+  "age_Character": 56,
+  "weight_Character": 103.2,
+  "history_Character": "Lisa es una niña amarilla",
+  "titulo_movie": "Los Simpsons",
+  "movieseries": [
+    {
+      "movieserieId": 0,
+      "title_Movserie": "Los Simpsons",
+      "image_Movserie": null,
+      "date_Movserie": "2021-12-10",
+      "rating_Movserie": 5,
+      "characters": [
+        null
+      ]
+    }
+  ]
+}
+
+
+  funciona como [frombody]
+
+  {
+  "characterId": 0,
+  "file": null,
+  "name_Character": "string",
+  "age_Character": 56,
+  "weight_Character": 89,
+  "history_Character": "string",
+  "movieseries": [
+    {
+      "movieserieId": 0,
+      "title_Movserie": "string",
+      "image_Movserie": null,
+      "date_Movserie": "2021-12-15",
+      "rating_Movserie": 0,
+      "characters": [
+        {
+          "characterId": 0,
+          "name_Character": "string",
+          "age_Character": 0,
+          "weight_Character": 0,
+          "history_Character": "string",
+          "titulo_movie": "string",
+          "movieseries": [
+            null
+          ]
+        }
+      ]
+    }
+  ],
+  "title_movie": "string",
+  "date_movie": "2021-12-15T04:09:35.419Z",
+  "rating_movie": 5
+}
+
+*/
+
+
+/*
+
+  POST METODO CHARACTER
+
+
+
+
+
+*/

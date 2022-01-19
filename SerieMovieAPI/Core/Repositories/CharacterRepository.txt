@@ -1,0 +1,136 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using SerieMovieAPI.Core.IRepositories;
+using SerieMovieAPI.Data;
+using SerieMovieAPI.Models;
+using SerieMovieAPI.Models.DTOs.Characters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SerieMovieAPI.Core.Repositories
+{
+    public class CharacterRepository : GenericRepository<CharacterModel>, ICharacterRepository
+    {
+
+        public CharacterRepository(SerieMovieDBContext context, ILogger logger) :
+            base(context, logger)
+        {
+        }
+
+        public override async Task<IQueryable<CharacterModel>> GetTodos()
+        {
+            try
+            {
+                var todos = await dbset.ToListAsync();
+               
+                return todos.AsQueryable();
+                /*  return await dbset.Include(g => g.Movieseries).ToListAsync(); */
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} All method error", typeof(CharacterRepository));
+                return new List<CharacterModel>().AsQueryable();
+            }
+
+        }
+
+
+        public override async Task<bool> Upsert(CharacterModel entity)
+        {
+
+            try
+            {
+                var existingCharacter = await dbset.Where(x => x.CharacterId == entity.CharacterId)
+                .FirstOrDefaultAsync();
+
+                if (existingCharacter == null)
+                {
+                    return await Add(entity);
+                }
+                else
+                {
+                    existingCharacter.Image_Characterbyte = entity.Image_Characterbyte;
+                    existingCharacter.Name_Character = entity.Name_Character;
+                    existingCharacter.Age_Character = entity.Age_Character;
+                    existingCharacter.Weight_Character = entity.Weight_Character;
+                    existingCharacter.Movieseries = entity.Movieseries;
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} Upsert method error", typeof(CharacterRepository));
+                return false;
+            }
+        }
+
+        // eliminar character
+        public override async Task<bool> Deletekey(int id)
+        {
+            try
+            {
+                var exist = await dbset.Where(x => x.CharacterId == id)
+                    .FirstOrDefaultAsync();
+
+                if (exist != null)
+                {
+                    dbset.Remove(exist);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} Delete method error", typeof(CharacterRepository));
+                return false;
+            }
+        }
+
+        public Task<bool> AddDTO(CharactersDTO character)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override async Task<IEnumerable<CharacterModel>> GetbyNames(string name)
+        {
+            var namechar = await dbset.Include(m => m.Movieseries)
+                .Where(c => c.Name_Character == name)
+                .ToListAsync();
+
+            return namechar;
+        }
+
+        public override async Task<IEnumerable<CharacterModel>> GetbyAges(int age)
+        {
+            try {
+                var agechar = await dbset.Include(m => m.Movieseries)
+                    .Where(c => c.Age_Character == age)
+                    .ToListAsync();
+
+                return agechar;
+            } catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} Delete method error", typeof(CharacterRepository));
+                return (IEnumerable<CharacterModel>)new List<IEnumerable<CharacterModel>>().AsQueryable();
+            }
+        }
+
+        public override async Task<IEnumerable<CharacterModel>> GetcharacterByIdmovie(int idmovie)
+        {
+            //var characterbymovie = await dbset.Include(c => c.Movieseries.Where(m => m.MovieserieId == idmovie)).ToListAsync();
+
+            var onlyMoviesCharacterWith = await dbset.Include(m => m.Movieseries)
+                .Where(c => c.Movieseries
+                .Select(idmov => idmov.MovieserieId)
+                .Contains(idmovie)).ToListAsync();
+
+            return onlyMoviesCharacterWith;
+
+        }
+    }
+}
